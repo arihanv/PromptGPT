@@ -33,10 +33,10 @@ export default function IndexPage() {
           </div>
           <div className="h-full flex my-auto">
             <div className="hidden lg:block">
-            <ArrowRight/>
+              <ArrowRight />
             </div>
             <div className="lg:hidden">
-            <ArrowDown/>
+              <ArrowDown />
             </div>
           </div>
           <div className="bg-white dark:bg-black min-w-[315px] max-h-[500px] lg:min-h-[400px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
