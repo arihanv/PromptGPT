@@ -15,4 +15,3 @@ npm run dev
 ## License
 
 Licensed under the [MIT license] //TODO: Add license
-`
