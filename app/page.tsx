@@ -23,7 +23,7 @@ export default function IndexPage() {
           <MiniBar />
         </div>
         <div className="lg:flex-row flex-col flex gap-4 justify-center items-center flex-wrap lg:items-stretch">
-          <div className="bg-white dark:bg-black min-w-[415px] max-h-[500px] lg:min-h-[400px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
+          <div className="bg-white dark:bg-black min-w-[315px] lg:min-w-[400px] max-h-[500px] lg:min-h-[410px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
             <div className="h-full w-full rounded-lg border border-gray-700 bg-white dark:bg-black overflow-y-scroll">
               <Textarea
                 className="h-full p-2.5"
@@ -33,13 +33,13 @@ export default function IndexPage() {
           </div>
           <div className="h-full flex my-auto">
             <div className="hidden lg:block">
-            <ArrowRight/>
+              <ArrowRight />
             </div>
             <div className="lg:hidden">
-            <ArrowDown/>
+              <ArrowDown />
             </div>
           </div>
-          <div className="bg-white dark:bg-black min-w-[415px] max-h-[500px] lg:min-h-[400px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
+          <div className="bg-white dark:bg-black min-w-[315px] lg:min-w-[400px] max-h-[500px] lg:min-h-[410px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
             <div className="h-full w-full rounded-lg border border-gray-700 bg-white dark:bg-black overflow-y-scroll">
               <div className="p-2.5 opacity-50 text-sm italic font-medium">
                 Generated prompt will appear here...
