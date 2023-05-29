@@ -26,7 +26,7 @@ export default function IndexPage() {
           <div className="bg-white dark:bg-black min-w-[315px] lg:min-w-[400px] max-h-[500px] lg:min-h-[410px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
             <div className="flex w-full rounded-lg border border-gray-700 bg-white dark:bg-black textareaCont">
               <Textarea
-                className="h-full p-2.5"
+                className="h-full p-2.5 resize-none"
                 placeholder="Type your prompt here."
               />
             </div>
