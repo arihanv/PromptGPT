@@ -1,0 +1,23 @@
+img.circular--square {.circular--square {
+    border-radius: 50%; };
+    border-radius: 50%;
+    width: 400px;
+    height: 300px;
+}
+
+img.circular--square {}
+
+.image {
+    height: 300px;
+    width: 300px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    padding-left: 20px;
+}

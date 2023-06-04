@@ -13,7 +13,7 @@ export default function StatsPage() {
           Statistics
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl text-center">
-          View the <b>amazing</b> statics <br className="hidden sm:inline" /> of
+          View the <b>amazing</b> stats <br className="hidden sm:inline" /> of
           our prompt generation tool.
         </p>
     </section>
