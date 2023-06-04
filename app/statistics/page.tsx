@@ -16,7 +16,39 @@ export default function StatsPage() {
           View the <b>amazing</b> statics <br className="hidden sm:inline" /> of
           our prompt generation tool.
         </p>
+    </section>
+
+    <section class="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <div class="flex flex-col items-left gap-2">
+        <h1 class="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
+          EMBED A DATA VISUAL HERE.
+        </h1>
+        <p class="max-w-[700px] text-lg text-muted-foreground sm:text-xl text-center">
+        Loren ipsem. We will write about the data visualization here.<br class="hidden sm:inline"> of our prompt generation tool.
+        </p>
       </div>
     </section>
+
+    <section class="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <div class="flex flex-col items-left gap-2">
+        <h1 class="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
+          References
+        </h1>
+        <p class="max-w-[700px] text-lg text-muted-foreground sm:text-xl text-center">
+          <ul>
+            <li>
+              <a href="lorenipsum.com"> Reference 1 </a>
+            </li>
+            <li>
+              <a href="lorenipsum.com"> Reference 1 </a>
+            </li>
+            <li>
+              <a href="lorenipsum.com"> Reference 1 </a>
+            </li>
+            </ul>
+        </p>
+      </div>
+    </section>
+
   )
 }
