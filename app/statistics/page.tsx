@@ -21,10 +21,10 @@ export default function StatsPage() {
     <section class="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div class="flex flex-col items-left gap-2">
         <h1 class="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
-          EMBED A DATA VISUAL HERE.
+          Embed a visual here- tableau, csv, excel, etc.
         </h1>
-        <p class="max-w-[700px] text-lg text-muted-foreground sm:text-xl text-center">
-        Loren ipsem. We will write about the data visualization here.<br class="hidden sm:inline"> of our prompt generation tool.
+        <p class="max-w-[700px] text-lg text-muted-foreground sm:text-0.50 text-left">
+          Embed a descriptive analysis of the statistics here <br class="hidden sm:inline"> of our prompt generation tool.
         </p>
       </div>
     </section>
@@ -34,18 +34,18 @@ export default function StatsPage() {
         <h1 class="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
           References
         </h1>
-        <p class="max-w-[700px] text-lg text-muted-foreground sm:text-xl text-center">
+        <p class="max-w-[700px] text-lg text-muted-foreground sm:text-0.50 text-left">
           <ul>
             <li>
-              <a href="lorenipsum.com"> Reference 1 </a>
+              <a href="lorenipsum.com"> Reference 1 anchor </a>
             </li>
             <li>
-              <a href="lorenipsum.com"> Reference 1 </a>
+                <a href="lorenipsum.com"> Reference 2 </a>
             </li>
             <li>
-              <a href="lorenipsum.com"> Reference 1 </a>
+                <a href="lorenipsum.com"> Reference 3 </a>
             </li>
-            </ul>
+          </ul>
         </p>
       </div>
     </section>
