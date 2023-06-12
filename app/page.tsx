@@ -47,7 +47,7 @@ export default function IndexPage() {
         </div>
         <div className="lg:flex-row flex-col flex gap-4 justify-center items-center flex-wrap lg:items-stretch">
           <div className="bg-white relative dark:bg-black min-w-[315px] lg:min-w-[400px] max-h-[500px] lg:min-h-[410px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
-            <div className="flex w-full rounded-lg border border-gray-700 bg-white dark:bg-black h-full flex-col">
+            <div className="flex w-full rounded-lg border border-gray-700 bg-white dark:bg-black lg:h-full flex-col">
               <Textarea
                 onChange={(e) => setInput(e.target.value)}
                 className="h-full p-2.5 resize-none rounded-b-none"
