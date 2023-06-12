@@ -17,6 +17,10 @@ export const siteConfig = {
       title: "Team",
       href: "/team",
     },
+  {
+    title: "Research",
+    href: "/research",
+  },
   ],
   links: {
     twitter: "/",
