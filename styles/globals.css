@@ -78,4 +78,20 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  .card {
+    padding: 0.625rem;
+    border-width: 1px;
+    border-color: rgb(55 65 81);
+    border-radius: 0.625rem;
+    overflow-wrap: break-word;
+    height: fit-content;
+  }
+  .cardTitle{
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    width: 100%;
+    padding-left: 6px;
+    border-radius: 0.425rem;
+  }
 }
