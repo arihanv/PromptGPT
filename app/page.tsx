@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { use, useState } from "react"
 import Link from "next/link"
-import { ArrowDown, ArrowRight, Loader2 } from "lucide-react"
+import { AlertCircle, ArrowDown, ArrowRight, Loader2 } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -13,21 +13,66 @@ export default function IndexPage() {
   const [input, setInput] = useState("")
   const [output, setOutput] = useState("")
   const [loading, setLoading] = useState(true)
+  const [loadingRe, setLoadingRe] = useState(false)
+  const [spellPrompt, setSpellPrompt] = useState("")
 
   async function getQuery(query: string) {
-    const res = await fetch(
-      `https://gpt-api-z4khdeirua-uc.a.run.app/predict/${query}`
-    )
+    setLoading(true)
+    setOutput("Generating...")
 
-    console.log(
-      "Asked:",
-      `https://gpt-api-z4khdeirua-uc.a.run.app/predict/${query}`
-    )
+    try {
+      const stat = await fetch(`https://gpt-api-z4khdeirua-uc.a.run.app/status`)
+      const stat_res = await stat.json()
+    } catch {
+      setOutput("Error: Server is busy. Try again later.")
+      return
+    }
 
-    const data = await res.json()
-    console.log(data[0].revised)
-    setOutput(data[0].revised)
-    setLoading(false)
+    try {
+      const res = await fetch(
+        `https://gpt-api-z4khdeirua-uc.a.run.app/predict/${query}`
+      )
+
+      console.log(
+        "Asked:",
+        `https://gpt-api-z4khdeirua-uc.a.run.app/predict/${query}`
+      )
+      const data = await res.json()
+      console.log(data[0].revised)
+      setOutput(data[0].revised)
+    } catch {
+      setOutput("Error: Server is busy. Try again later.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function useRespell(query: string) {
+    const response = await fetch("https://api.respell.ai/v1/run", {
+      method: "POST",
+      headers: {
+        authorization: "Bearer " + process.env.NEXT_PUBLIC_RESPELL_API_KEY,
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        spellId: "g_cKRamCFGE56b186d25r",
+        spellVersionId: "QGu2QE9Fu7QCXmlyO5MME",
+        inputs: {
+          input: query,
+        },
+      }),
+    })
+    try {
+      const data = await response.json()
+      console.log(data)
+      setSpellPrompt(data.outputs.output)
+    } catch {
+      setSpellPrompt("An Error Has Occured")
+      console.log("error")
+    } finally {
+      setLoadingRe(false)
+    }
   }
 
   return (
@@ -42,9 +87,6 @@ export default function IndexPage() {
         </p>
       </div>
       <div className="flex flex-col gap-4 items-center">
-        <div className="bg-gray-200 dark:bg-gray-800 p-1.5 rounded-lg w-fit">
-          <MiniBar />
-        </div>
         <div className="lg:flex-row flex-col flex gap-4 justify-center items-center flex-wrap lg:items-stretch">
           <div className="bg-white relative dark:bg-black min-w-[315px] lg:min-w-[400px] max-h-[500px] lg:min-h-[410px] min-h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
             <div className="flex w-full rounded-lg border border-gray-700 bg-white dark:bg-black lg:h-full flex-col">
@@ -74,8 +116,12 @@ export default function IndexPage() {
               <ArrowDown />
             </div>
           </div>
-          <div className="bg-white dark:bg-black w-[315px] lg:w-[400px] max-h-[500px] lg:h-[410px] h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
-            <div className="flex w-full rounded-lg border border-gray-700 bg-white dark:bg-black overflow-y-scroll">
+          <div className="bg-white dark:bg-black w-[315px] lg:w-[400px] max-h-[500px] lg:h-[410px] h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg flex flex-col">
+            <div
+              className={`flex w-full rounded-x-lg rounded-t-lg rounded-b-lg${
+                output && !loading ? "-none" : ""
+              } border border-gray-700 bg-white dark:bg-black overflow-y-scroll h-full`}
+            >
               {!output ? (
                 <div className="p-2.5 opacity-50 text-sm italic font-medium">
                   Generated prompt will appear here...
@@ -85,6 +131,62 @@ export default function IndexPage() {
                   {!loading ? (
                     <div className="p-2.5 opacity-50 text-sm font-medium">
                       {output}
+                    </div>
+                  ) : (
+                    <div className="flex w-full">
+                      <div className="animate-spin text-gray-400 repeat-infinite dark:text-gray-600 m-auto">
+                        <Loader2 size={30} />
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            <Button
+              onClick={(e) => {
+                e.preventDefault()
+                setLoadingRe(true)
+                setSpellPrompt("Generating...")
+                window.scrollTo({
+                  top: document.documentElement.scrollHeight,
+                  behavior: "smooth",
+                })
+                useRespell(output)
+              }}
+              className={`rounded-t-none w-full ${
+                output && !loading ? "" : "hidden"
+              }`}
+              variant="default"
+            >
+              Try it out!
+            </Button>
+          </div>
+        </div>
+        <br></br>
+        <div>
+          <div className="text-sm mb-1">
+            Powered by{" "}
+            <span className="bg-gradient-to-r font-semibold  from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">
+              Respell.ai
+            </span>
+          </div>
+          <div className="bg-white dark:bg-black w-[315px] lg:w-[400px] max-h-[500px] lg:h-[410px] h-[200px] rounded-xl p-1 border border-gray-700 shadow-lg grid">
+            <div className="flex w-full rounded-lg border border-gray-700 bg-white dark:bg-black overflow-y-scroll">
+              {!spellPrompt ? (
+                <div className="p-2.5 opacity-50 text-sm font-medium h-full flex items-center justify-center w-full flex-col gap-1">
+                  <div className="dark:bg-gray-800 bg-gray-200 p-1.5 rounded-lg">
+                    <AlertCircle />
+                  </div>
+                  <div className="dark:bg-gray-800 bg-gray-200 px-2.5 py-1 rounded-xl">
+                    First generate a prompt!
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {!loadingRe && spellPrompt ? (
+                    <div className="p-2.5 opacity-50 text-sm font-medium">
+                      {spellPrompt}
                     </div>
                   ) : (
                     <div className="flex w-full">
