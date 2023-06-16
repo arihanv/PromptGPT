@@ -47,7 +47,7 @@ export default function IndexPage() {
     }
   }
 
-  async function useRespell(query: string) {
+  async function getRespell(query: string) {
     const response = await fetch("https://api.respell.ai/v1/run", {
       method: "POST",
       headers: {
@@ -152,7 +152,7 @@ export default function IndexPage() {
                   top: document.documentElement.scrollHeight,
                   behavior: "smooth",
                 })
-                useRespell(output)
+                getRespell(output)
               }}
               className={`rounded-t-none w-full ${
                 output && !loading ? "" : "hidden"
