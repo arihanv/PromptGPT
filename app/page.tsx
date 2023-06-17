@@ -21,7 +21,7 @@ export default function IndexPage() {
     setOutput("Generating...")
 
     try {
-      const stat = await fetch(`https://gpt-api-z4khdeirua-uc.a.run.app/status`)
+      const stat = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/status`)
       const stat_res = await stat.json()
     } catch {
       setOutput("Error: Server is busy. Try again later.")
@@ -30,13 +30,12 @@ export default function IndexPage() {
 
     try {
       const res = await fetch(
-        `https://gpt-api-z4khdeirua-uc.a.run.app/predict/${query}`
+        `${process.env.NEXT_PUBLIC_API_URL}/predict/${query}`
       )
-
-      console.log(
-        "Asked:",
-        `https://gpt-api-z4khdeirua-uc.a.run.app/predict/${query}`
-      )
+      // console.log(
+      //   "Asked:",
+      //   `${process.env.NEXT_PUBLIC_API_URL}/predict/${query}`
+      // )
       const data = await res.json()
       console.log(data[0].revised)
       setOutput(data[0].revised)
@@ -77,6 +76,14 @@ export default function IndexPage() {
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 w-fit">
+      <div className="flex justify-center items-center">
+        <div className="text-xs w-fit bg-yellow-100 text-yellow-500 dark:text-yellow-100 bg-opacity-70 p-1.5 rounded-lg text-center flex gap-1 items-center">
+          <div className="opacity-60 text-yellow-500 dark:text-yellow-100">
+            <AlertCircle size={18} />
+          </div>
+          Server currently only accepts 1 request at a time, so concurrent requests may fail
+        </div>
+      </div>
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
           PromptGPT
