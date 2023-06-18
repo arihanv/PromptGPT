@@ -1,13 +1,10 @@
 "use client"
 
-import { use, useState } from "react"
-import Link from "next/link"
+import { useState } from "react"
 import { AlertCircle, ArrowDown, ArrowRight, Loader2 } from "lucide-react"
-
-import { siteConfig } from "@/config/site"
-import { Button, buttonVariants } from "@/components/ui/button"
+import axios from "axios"
+import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { MiniBar } from "@/components/mini-bar"
 
 export default function IndexPage() {
   const [input, setInput] = useState("")
@@ -15,36 +12,54 @@ export default function IndexPage() {
   const [loading, setLoading] = useState(true)
   const [loadingRe, setLoadingRe] = useState(false)
   const [spellPrompt, setSpellPrompt] = useState("")
+  const [token, setToken] = useState("")
+  const [position, setPosition] = useState({position: 0, queueSize: 0})
 
   async function getQuery(query: string) {
-    setLoading(true)
-    setOutput("Generating...")
-
+    setLoading(true);
+    setOutput("Generating...");
+  
     try {
-      const stat = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/status`)
-      const stat_res = await stat.json()
-    } catch {
-      setOutput("Error: Server is busy. Try again later.")
-      return
-    }
-
-    try {
-      const res = await fetch(
+      const generateRes = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/predict/${query}`
-      )
-      // console.log(
-      //   "Asked:",
-      //   `${process.env.NEXT_PUBLIC_API_URL}/predict/${query}`
-      // )
-      const data = await res.json()
-      console.log(data[0].revised)
-      setOutput(data[0].revised)
+      );
+      const tk = generateRes.data.token;
+      setToken(tk);
+      console.log(tk);
+  
+      const fetchData = async (tk:any) => {
+        try {
+          console.log(`${process.env.NEXT_PUBLIC_API_URL}/result/${tk}`)
+          const resultRes = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/result/${tk}`
+          );
+          const data = resultRes.data;
+
+          console.log(data)
+  
+          if (data.input) {
+            console.log(data.prediction[0].revised);
+            setOutput(data.prediction[0].revised);
+            setLoading(false);
+          } else {
+            console.log("Retry")
+            console.log(data)
+            setPosition(data)
+            setTimeout(() => fetchData(tk), 3000);
+          }
+        } catch {
+          setOutput("Error: Server is busy. Try again later.");
+          setLoading(false);
+        }
+      };
+      fetchData(tk);
     } catch {
-      setOutput("Error: Server is busy. Try again later.")
-    } finally {
-      setLoading(false)
+      setOutput("Error: Server is down. Try again later.");
+      setLoading(false);
     }
   }
+  
+  
 
   async function getRespell(query: string) {
     const response = await fetch("https://api.respell.ai/v1/run", {
@@ -105,6 +120,7 @@ export default function IndexPage() {
               <Button
                 onClick={(e) => {
                   e.preventDefault()
+                  if(!input) return
                   setLoading(true)
                   getQuery(input)
                 }}
@@ -140,10 +156,15 @@ export default function IndexPage() {
                       {output}
                     </div>
                   ) : (
+                    <div className="w-full h-full flex flex-col gap-2.5 justify-center items-center">
                     <div className="flex w-full">
                       <div className="animate-spin text-gray-400 repeat-infinite dark:text-gray-600 m-auto">
                         <Loader2 size={30} />
                       </div>
+                    </div>
+                    <div className="flex justify-center text-muted-foreground text-xs">
+                    Queue: {position.position} / {position.queueSize}
+                    </div>
                     </div>
                   )}
                 </>
@@ -173,7 +194,7 @@ export default function IndexPage() {
         <br></br>
         <div>
           <div className="text-sm mb-1">
-            Powered by{" "}
+            GPT-3 Powered by{" "}
             <span className="bg-gradient-to-r font-semibold  from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">
               Respell.ai
             </span>

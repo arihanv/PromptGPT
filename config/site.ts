@@ -20,7 +20,7 @@ export const siteConfig = {
   ],
   links: {
     twitter: "/",
-    github: "/",
+    github: "https://github.com/arihanv/PromptGPT",
     docs: "/",
   },
 }
