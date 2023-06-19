@@ -80,7 +80,11 @@ export default function IndexPage() {
     try {
       const data = await response.json()
       console.log(data)
+      if(data.outputs.output === ''){
+        setSpellPrompt("Respell is down")
+      } else {
       setSpellPrompt(data.outputs.output)
+      }
     } catch {
       setSpellPrompt("An Error Has Occured")
       console.log("error")
@@ -120,6 +124,7 @@ export default function IndexPage() {
               <Button
                 onClick={(e) => {
                   e.preventDefault()
+                  if(loading && output) return
                   if(!input) return
                   setLoading(true)
                   getQuery(input)
@@ -179,6 +184,7 @@ export default function IndexPage() {
             <Button
               onClick={(e) => {
                 e.preventDefault()
+                if(loadingRe) return
                 setLoadingRe(true)
                 setSpellPrompt("Generating...")
                 window.scrollTo({
