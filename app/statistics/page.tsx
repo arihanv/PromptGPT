@@ -22,7 +22,7 @@ export default function StatsPage() {
             ></img>
             <div className="card dark:bg-gray-800 shadow-lg">
               The mean perplexity of the model of the greedy decoding is 2.723,
-              while an untrained model's mean perplexity of the 390 examples
+              while an untrained model&apos;s mean perplexity of the 390 examples
               leads 11.75.
             </div>
           </div>
