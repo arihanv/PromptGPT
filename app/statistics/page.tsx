@@ -10,32 +10,39 @@ export default function StatsPage() {
           our prompt generation tool.
         </p>
         <div className="flex flex-wrap gap-5 justify-center mt-10">
-          <div className="card max-w-[300px] dark:bg-gray-800 shadow-lg flex flex-col gap-1">
-            <div className="cardTitle dark:bg-gray-900 bg-gray-100">Title</div>
-            <p>Some info about Stats of the model</p>
-          </div>
-          <div className="max-w-[300px] flex flex-col gap-2 card">
-            <div className="cardTitle dark:bg-gray-900 bg-gray-100">Title</div>
+          <div className="max-w-[500px] flex flex-col gap-2 card">
+            <div className="cardTitle dark:bg-gray-900 bg-gray-100">
+              Perplexity
+            </div>
             <img
               className="rounded-lg"
               src={
-                "https://images.ctfassets.net/pdf29us7flmy/4FaqpZFMenRQoDl0LGqFes/02c40a20ee37917f3e117b9c599f132d/GOLD-6487-CareerGuide-Batch04-Images-GraphCharts-01-Line.png?w=720&q=100&fm=jpg"
+                "https://media.discordapp.net/attachments/1119075412983677001/1120219751487119480/perplexity.png?width=1124&height=910"
               }
             ></img>
             <div className="card dark:bg-gray-800 shadow-lg">
-              Description of the graph
+              The mean perplexity of the model of the greedy decoding is 2.723,
+              while an untrained model's mean perplexity of the 390 examples
+              leads 11.75.
             </div>
           </div>
-          <div className="max-w-[300px] flex flex-col gap-2 card">
-            <div className="cardTitle dark:bg-gray-900 bg-gray-100">Title</div>
+          <div className="max-w-[500px] flex flex-col gap-2 card">
+            <div className="cardTitle dark:bg-gray-900 bg-gray-100">
+              Rouge Score
+            </div>
             <img
               className="rounded-lg"
               src={
-                "https://images.ctfassets.net/pdf29us7flmy/4FaqpZFMenRQoDl0LGqFes/02c40a20ee37917f3e117b9c599f132d/GOLD-6487-CareerGuide-Batch04-Images-GraphCharts-01-Line.png?w=720&q=100&fm=jpg"
+                "https://cdn.discordapp.com/attachments/1119075412983677001/1120219751738781707/output.png"
               }
             ></img>
             <div className="card dark:bg-gray-800 shadow-lg">
-              Description of the graph
+              We use the Rogue score 1 , 2 , L and sum of the ChatGPT with the
+              same instruction for the Prompt Generator models and compare the
+              rogue score. The high rogue score demonstrates the model will
+              closely match the reference text for predictions. However, these
+              metrics ignore that ChatGPT does the same instruction very
+              differently from the reference text.
             </div>
           </div>
         </div>
