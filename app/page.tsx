@@ -162,8 +162,13 @@ export default function IndexPage() {
                         <Loader2 size={30} />
                       </div>
                     </div>
-                    <div className="flex justify-center text-muted-foreground text-xs">
+                    <div className="flex-col justify-center items-center text-center text-muted-foreground text-xs">
+                      <div>
                     Queue: {position.position} / {position.queueSize}
+                    </div>
+                    <div>
+                    Est Time: {position.position * 15} secs
+                    </div>
                     </div>
                     </div>
                   )}
